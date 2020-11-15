@@ -4,6 +4,12 @@ Language model inference code by Kenneth Heafield (kenlm at kheafield.com)
 
 The website https://kheafield.com/code/kenlm/ has more documentation.  If you're a decoder developer, please download the latest version from there instead of copying from another decoder.
 
+*This fork of kenlm was made in order to have stable versioned pip packages
+for use with [CAMeL Tools](https://github.com/CAMeL-Lab/camel_tools).
+Versions are numbered as `yyyy.mm.n` where `yyyy` and `mm` is the year and
+month respectively of the last commit in the main repo and `n` is the release
+number in that year and month.*
+
 ## Compiling
 Use cmake, see [BUILDING](BUILDING) for build dependencies and more detail.
 ```bash

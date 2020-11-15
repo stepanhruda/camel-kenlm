@@ -57,6 +57,7 @@ ext_modules = [
 
 setup(
     name='kenlm',
+    version='2020.11.1'
     ext_modules=ext_modules,
     include_package_data=True,
 )
