@@ -57,7 +57,7 @@ ext_modules = [
 
 setup(
     name='camel-kenlm',
-    version='2020.11.1',
+    version='2021.12.27',
     url='https://github.com/CAMeL-Lab/camel-kenlm',
     ext_modules=ext_modules,
     include_package_data=True,
