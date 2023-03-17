@@ -21,3 +21,4 @@ DartConfiguration.tcl
 Makefile
 *.egg-info
 /dist
+.DS_Store
