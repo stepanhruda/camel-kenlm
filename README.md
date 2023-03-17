@@ -95,6 +95,8 @@ Contributed by Victor Chahuneau.
 pip install https://github.com/kpu/kenlm/archive/master.zip
 ```
 
+When installing pip, the `MAX_ORDER` environment variable controls the max order with which KenLM was built.
+
 ### Basic Usage
 ```python
 import kenlm
