@@ -122,7 +122,7 @@ ext_modules = [
 
 setup(
     name='camel-kenlm',
-    version='2021.12.27',
+    version='2023.03.17',
     url='https://github.com/CAMeL-Lab/camel-kenlm',
     ext_modules=ext_modules,
     cmdclass={"build_ext": build_ext},
