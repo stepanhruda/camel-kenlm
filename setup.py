@@ -74,7 +74,8 @@ class build_ext(_build_ext):
         cmake_args = [
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + ext_dir,
             "-DBUILD_SHARED_LIBS=ON",
-            "-DBUILD_PYTHON_STANDALONE=ON",
+            # Has to be off to compile bindings from pip package
+            "-DBUILD_PYTHON_STANDALONE=OFF",
             f"-DKENLM_MAX_ORDER={max_order}",
         ]
         cfg = "Debug" if self.debug else "Release"
@@ -122,7 +123,7 @@ ext_modules = [
 
 setup(
     name='camel-kenlm',
-    version='2023.03.17',
+    version='2023.3.17.2',
     url='https://github.com/CAMeL-Lab/camel-kenlm',
     ext_modules=ext_modules,
     cmdclass={"build_ext": build_ext},
