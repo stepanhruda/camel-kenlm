@@ -15,21 +15,21 @@ jobs:
 
       - uses: actions/setup-python@v3
 
-      - name: Install boost Ubuntu
-        if: matrix.os == 'ubuntu-22.04'
-        uses: MarkusJx/install-boost@v2.4.1
-        id: install-boost-ubuntu
-        with:
-            boost_version: 1.81.0
-            platform_version: 22.04
+      # - name: Install boost Ubuntu
+      #   if: matrix.os == 'ubuntu-22.04'
+      #   uses: MarkusJx/install-boost@v2.4.1
+      #   id: install-boost-ubuntu
+      #   with:
+      #       boost_version: 1.81.0
+      #       platform_version: 22.04
 
-      - name: Install boost MacOS 11
-        if: matrix.os == 'macOS-11'
-        uses: MarkusJx/install-boost@v2.4.1
-        id: install-boost-macos-11
-        with:
-            boost_version: 1.81.0
-            platform_version: 11
+      # - name: Install boost MacOS 11
+      #   if: matrix.os == 'macOS-11'
+      #   uses: MarkusJx/install-boost@v2.4.1
+      #   id: install-boost-macos-11
+      #   with:
+      #       boost_version: 1.81.0
+      #       platform_version: 11
 
       - name: Install Python dependencies
         run: |
@@ -40,14 +40,18 @@ jobs:
         if: matrix.os == 'ubuntu-22.04'
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          BOOST_ROOT: ${{ steps.install-boost-ubuntu.outputs.BOOST_ROOT }}
+          # BOOST_ROOT: ${{ steps.install-boost-ubuntu.outputs.BOOST_ROOT }}
+          CIBW_BEFORE_ALL: sudo apt-get install && sudo apt-get install libboost-all-dev
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
 
       - name: Build package macOS 11
         if: matrix.os == 'macOS-11'
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          BOOST_ROOT: ${{ steps.install-boost-macos-11.outputs.BOOST_ROOT }}
+          # BOOST_ROOT: ${{ steps.install-boost-macos-11.outputs.BOOST_ROOT }}
+          CIBW_BEFORE_ALL: brew update && brew install boost
           CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
 
       - uses: actions/upload-artifact@v3
         with:
