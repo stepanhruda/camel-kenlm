@@ -18,7 +18,7 @@ jobs:
       - name: Install boost Ubuntu
         if: matrix.os == 'ubuntu-22.04'
         uses: MarkusJx/install-boost@v2.4.1
-        id: install-boost
+        id: install-boost-ubuntu
         with:
             boost_version: 1.81.0
             platform_version: 22.04
@@ -26,7 +26,7 @@ jobs:
       - name: Install boost MacOS 11
         if: matrix.os == 'ubuntu-22.04'
         uses: MarkusJx/install-boost@v2.4.1
-        id: install-boost
+        id: install-boost-macos-11
         with:
             boost_version: 1.81.0
             platform_version: 11
@@ -48,10 +48,16 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install cibuildwheel==2.12.1
 
-      - name: Build package
+      - name: Build package Ubuntu
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+          BOOST_ROOT: ${{ steps.install-boost-ubuntu.outputs.BOOST_ROOT }}
+          CIBW_ARCHS_MACOS: x86_64 arm64
+
+      - name: Build package macOS 11
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          BOOST_ROOT: ${{ steps.install-boost-macos-11.outputs.BOOST_ROOT }}
           CIBW_ARCHS_MACOS: x86_64 arm64
 
       - uses: actions/upload-artifact@v3
