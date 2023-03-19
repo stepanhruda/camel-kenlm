@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, macOS-11, macOS-12]
+        os: [ubuntu-22.04, macOS-11]
 
     steps:
       - uses: actions/checkout@v3
@@ -45,7 +45,7 @@ jobs:
       #     CIBW_PROJECT_REQUIRES_PYTHON: "3.8"
 
       - name: Build wheels on MacOS arm64 + Python 3.9+
-        if: matrix.os == "macOS-11" || matrix.os == "macOS-12"
+        if: matrix.os == 'macOS-11' || matrix.os == 'macOS-12'
         uses: pypa/cibuildwheel@v2.12.1
         with:
           output-dir: wheelhouse
