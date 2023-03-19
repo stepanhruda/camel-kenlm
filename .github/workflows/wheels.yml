@@ -29,6 +29,7 @@ jobs:
             "
           CIBW_ARCHS_MACOS: x86_64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
+          CIBW_SKIP: "pp* *-manylinux_i686 *-musllinux_*"
 
       # TODO: Try to get builds to work on Python 3.8
       # - name: Build wheels on MacOS arm64 + Python 3.8
@@ -58,6 +59,7 @@ jobs:
             brew install boost
           CIBW_ARCHS_MACOS: arm64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
+          CIBW_SKIP: "pp* *-musllinux_*"
 
       - uses: actions/upload-artifact@v3
         with:
