@@ -23,9 +23,10 @@ jobs:
           CIBW_BEFORE_ALL_MACOS:
             brew update &&
             brew install boost
-          CIBW_BEFORE_ALL_LINUX:
-            \{ yum makecache && yum install -y boost-devel eigen3-devel \} ||
-            \{ apt-get update && apt-get install libboost-all-dev libeigen-dev \}  # In case the runner is Debian
+          CIBW_BEFORE_ALL_LINUX: "
+            { yum makecache && yum install -y boost-devel eigen3-devel; } ||
+            { apt-get update && apt-get install libboost-all-dev libeigen-dev; }
+            "
           CIBW_ARCHS_MACOS: x86_64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
 
