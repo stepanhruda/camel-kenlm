@@ -41,7 +41,7 @@ jobs:
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
           # BOOST_ROOT: ${{ steps.install-boost-ubuntu.outputs.BOOST_ROOT }}
-          CIBW_BEFORE_ALL: sudo apt-get install && sudo apt-get install libboost-all-dev
+          CIBW_BEFORE_ALL: apt-get install && apt-get install libboost-all-dev
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
 
       - name: Build package macOS 11
