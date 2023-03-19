@@ -4,11 +4,11 @@ on: [push, pull_request]
 
 jobs:
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }} x86_64
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, macOS-11]
+        os: [ubuntu-22.04, macOS-11, macOS-12]
 
     steps:
       - uses: actions/checkout@v3
@@ -16,20 +16,45 @@ jobs:
       - uses: actions/setup-python@v3
 
       - name: Build package
-        #run: python -m cibuildwheel --output-dir wheelhouse
         uses: pypa/cibuildwheel@v2.12.1
         with:
           output-dir: wheelhouse
         env:
           CIBW_BEFORE_ALL_MACOS:
-            # curl -o /tmp/Python38.pkg https://www.python.org/ftp/python/3.8.10/python-3.8.10-macos11.pkg &&
-            # sudo installer -pkg /tmp/Python38.pkg -target / &&
-            # sh "/Applications/Python 3.8/Install Certificates.command" &&
             brew update &&
             brew install boost
-          CIBW_BEFORE_ALL_LINUX: yum install boost-devel
+          CIBW_BEFORE_ALL_LINUX: yum install -y boost-devel
           CIBW_ARCHS_MACOS: x86_64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.11"
+
+      # TODO: Try to get builds to work on Python 3.8
+      # - name: Build wheels on MacOS arm64 + Python 3.8
+      #   if: matrix.os == "macOS-11"
+      #   uses: pypa/cibuildwheel@v2.12.1
+      #   with:
+      #     output-dir: wheelhouse
+      #   env:
+      #     CIBW_BEFORE_ALL_MACOS:
+      #       curl -o /tmp/Python38.pkg https://www.python.org/ftp/python/3.8.10/python-3.8.10-macos11.pkg &&
+      #       sudo installer -pkg /tmp/Python38.pkg -target / &&
+      #       sh "/Applications/Python 3.8/Install Certificates.command" &&
+      #       brew update &&
+      #       brew install boost
+      #     CIBW_BEFORE_ALL_LINUX: yum install boost-devel
+      #     CIBW_ARCHS_MACOS: arm64
+      #     CIBW_PROJECT_REQUIRES_PYTHON: "3.8"
+
+      - name: Build wheels on MacOS arm64 + Python 3.9+
+        if: matrix.os == "macOS-11" || matrix.os == "macOS-12"
+        uses: pypa/cibuildwheel@v2.12.1
+        with:
+          output-dir: wheelhouse
+        env:
+          CIBW_BEFORE_ALL_MACOS:
+            brew update &&
+            brew install boost
+          CIBW_ARCHS_MACOS: arm64
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
 
       - uses: actions/upload-artifact@v3
         with:
