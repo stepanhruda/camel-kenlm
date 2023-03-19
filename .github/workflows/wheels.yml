@@ -21,7 +21,7 @@ jobs:
           sudo apt-get install libboost-all-dev
 
       - name: Install C++ build dependencies macOS
-        if: runner.os == 'macOS-11'
+        if: matrix.os == 'macOS-11'
         run: |
           brew install boost
 
