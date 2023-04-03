@@ -61,10 +61,10 @@ jobs:
             brew upgrade cmake &&
             brew install boost &&
             pip install --upgrade pip
-          CIBW_ARCHS_MACOS: arm64
+          CIBW_ARCHS_MACOS: universal2
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_SKIP: "pp* *-musllinux_*"
-          CMAKE_OSX_ARCHITECTURES: arm64
+          # CMAKE_OSX_ARCHITECTURES: arm64
 
       - uses: actions/upload-artifact@v3
         with:
