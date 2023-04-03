@@ -22,7 +22,9 @@ jobs:
         env:
           CIBW_BEFORE_ALL_MACOS:
             brew update &&
-            brew install boost
+            brew upgrade cmake &&
+            brew install boost &&
+            pip install --upgrade pip
           CIBW_BEFORE_ALL_LINUX: "
             { yum makecache && yum install -y boost-devel; } ||
             { apt-get update && apt-get install libboost-all-dev; }
@@ -56,11 +58,13 @@ jobs:
         env:
           CIBW_BEFORE_ALL_MACOS:
             brew update &&
-            brew install boost
+            brew upgrade cmake &&
+            brew install boost &&
+            pip install --upgrade pip
           CIBW_ARCHS_MACOS: arm64
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_SKIP: "pp* *-musllinux_*"
-          CMAKE_OSX_ARCHITECTURES: arm
+          CMAKE_OSX_ARCHITECTURES: arm64
 
       - uses: actions/upload-artifact@v3
         with:
