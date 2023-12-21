@@ -8,6 +8,7 @@ if (WIN32)
     # USE_STATIC_LIBS is off, so we explicitly say they are dynamic with the
     # remaining definitions.
     add_definitions(-DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_IOSTREAMS_DYN_LINK -DBOOST_THREAD_DYN_LINK)
+    set(CMAKE_C_COMPILER_WORKS 1)
 endif( )
 
 # Define a single cmake project
